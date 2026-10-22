@@ -1,23 +1,36 @@
 /* ==========================================================================
-   PALETA DE COLORES & VARIABLES (Inspirada en Cardenal Amarillo + Louvre)
+   REQUISITO: VARIABLES CSS Y PALETAS DE COLOR
    ========================================================================== */
 :root {
   --primary: #E5A823;          /* Amarillo Cardenal Vivo */
-  --primary-hover: #c89119;    /* Amarillo Oscuro para Hover */
-  --dark-bg: #121212;          /* Fondo Oscuro / Louvre Style */
-  --dark-surface: #1E1E1E;     /* Superficie Oscura */
-  --charcoal: #2C2C2A;         /* Negro Ceniza / Detalle Plumas */
-  --light-bg: #F8F9FA;         /* Fondo Claro Minimalista */
-  --text-dark: #212529;        /* Texto Principal */
-  --text-muted: #6C757D;       /* Texto Secundario */
-  --border-color: #E9ECEF;     /* Bordes Suaves */
+  --primary-hover: #c89119;    
+  --dark-bg: #121212;          
+  --dark-surface: #1E1E1E;     
+  --charcoal: #2C2C2A;         
+  --light-bg: #F8F9FA;         
+  --card-bg: #FFFFFF;
+  --text-main: #212529;        
+  --text-muted: #6C757D;       
+  --border-color: #E9ECEF;     
   
-  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* REQUISITO: Google Fonts */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
   
   --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
   --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* REQUISITO: Rutina CSS para Modo Oscuro Activado por JS */
+body.dark-theme {
+  --light-bg: #181818;
+  --card-bg: #242424;
+  --text-main: #F1F1F1;
+  --text-muted: #A0A0A0;
+  --border-color: #333333;
+  --charcoal: #E5A823;
+  background-color: #121212;
 }
 
 /* ==========================================================================
@@ -36,9 +49,10 @@ html {
 
 body {
   font-family: var(--font-sans);
-  color: var(--text-dark);
+  color: var(--text-main);
   background-color: #ffffff;
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a {
@@ -56,8 +70,33 @@ img {
   display: block;
 }
 
+/* BOTÓN TOGGLE TEMA (FLOTANTE) */
+.theme-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1001;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: #121212;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
 /* ==========================================================================
-   LAYOUT GENERAL
+   REQUISITO: FLEXBOX Y CSS GRID
    ========================================================================== */
 .container {
   width: 100%;
@@ -113,7 +152,7 @@ img {
 }
 
 /* ==========================================================================
-   HEADER Y NAVEGACIÓN DINÁMICA
+   HEADER Y NAVEGACIÓN FLEXBOX
    ========================================================================== */
 .header {
   position: fixed;
@@ -216,7 +255,7 @@ img {
 }
 
 /* ==========================================================================
-   HERO / PORTADA (Estilo Louvre)
+   HERO / PORTADA
    ========================================================================== */
 .hero {
   position: relative;
@@ -287,7 +326,6 @@ img {
   justify-content: center;
 }
 
-/* BOTONES */
 .btn {
   padding: 0.85rem 2rem;
   font-size: 0.85rem;
@@ -330,7 +368,7 @@ img {
    FEATURE CARDENAL AMARILLO
    ========================================================================== */
 .cardenal-feature {
-  background-color: var(--charcoal);
+  background-color: #1E1E1E;
   color: #fff;
   padding: 2rem 0;
   border-bottom: 3px solid var(--primary);
@@ -364,7 +402,7 @@ img {
    EXPOSICIONES / CARDS
    ========================================================================== */
 .card {
-  background: #ffffff;
+  background: var(--card-bg);
   border: 1px solid var(--border-color);
   transition: var(--transition);
 }
@@ -412,7 +450,7 @@ img {
   font-family: var(--font-serif);
   font-size: 1.35rem;
   margin-bottom: 0.75rem;
-  color: var(--charcoal);
+  color: var(--text-main);
 }
 
 .card-text {
@@ -422,7 +460,7 @@ img {
 }
 
 .card-link {
-  color: var(--charcoal);
+  color: var(--text-main);
   font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -558,6 +596,25 @@ img {
   50% { height: 20px; }
 }
 
+.radio-external-link {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.radio-external-link a {
+  color: var(--primary);
+  font-size: 0.9rem;
+  text-decoration: underline;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+
+.radio-external-link a:hover {
+  color: var(--primary-hover);
+}
+
 .news-main-title {
   font-family: var(--font-serif);
   font-size: 1.75rem;
@@ -596,7 +653,7 @@ img {
 .info-card {
   text-align: center;
   padding: 2.5rem 1.5rem;
-  background: #ffffff;
+  background: var(--card-bg);
   border: 1px solid var(--border-color);
 }
 
@@ -617,7 +674,7 @@ img {
   font-family: var(--font-serif);
   font-size: 1.35rem;
   margin-bottom: 1rem;
-  color: var(--charcoal);
+  color: var(--text-main);
 }
 
 .info-card p {
@@ -660,7 +717,7 @@ img {
 .contact-item strong {
   display: block;
   font-size: 0.9rem;
-  color: var(--charcoal);
+  color: var(--text-main);
 }
 
 .contact-item p {
@@ -669,7 +726,7 @@ img {
 }
 
 .form-card {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   padding: 2.5rem;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-sm);
@@ -679,7 +736,7 @@ img {
   font-family: var(--font-serif);
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  color: var(--charcoal);
+  color: var(--text-main);
 }
 
 .form-group {
@@ -691,23 +748,37 @@ img {
   font-size: 0.85rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: var(--charcoal);
+  color: var(--text-main);
 }
 
 .form-control {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   font-family: var(--font-sans);
   font-size: 0.95rem;
   transition: var(--transition);
-  background-color: #fff;
+  background-color: var(--card-bg);
+  color: var(--text-main);
 }
 
 .form-control:focus {
   outline: none;
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(229, 168, 35, 0.2);
+}
+
+.form-feedback {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  display: none;
+}
+
+.form-feedback.success {
+  background-color: rgba(46, 204, 113, 0.15);
+  color: #27ae60;
+  border: 1px solid #27ae60;
 }
 
 /* ==========================================================================
@@ -846,7 +917,7 @@ img {
 }
 
 /* ==========================================================================
-   RESPONSIVE (ADAPTACIÓN A MÓVILES)
+   REQUISITO: DISEÑO RESPONSIVO (MÓVIL Y TABLET)
    ========================================================================== */
 @media (max-width: 992px) {
   .radio-wrapper, 
